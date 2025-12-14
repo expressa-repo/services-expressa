@@ -41,21 +41,6 @@ POSTGRES_DB=expressa_db
 TZ=Asia/Jakarta
 ```
 
-### Makefile Commands
-
-```bash
-make help      # Lihat semua perintah tersedia
-make up        # Start PostgreSQL
-make down      # Stop PostgreSQL
-make restart   # Restart PostgreSQL
-make logs      # Show logs
-make status    # Show status
-make shell     # Access container shell
-make psql      # Connect to PostgreSQL
-make backup    # Backup database
-make clean     # Clean up
-```
-
 ## 🔑 Database Credentials
 
 ### Default Access
@@ -227,7 +212,6 @@ docker-compose exec postgresql psql -U svc_pg3xp -d expressa_db -c "SELECT pg_si
 
 ```
 postgresql16/
-├── Makefile            # Management commands
 ├── docker-compose.yml  # Docker compose config
 └── init/              # Database initialization scripts (optional)
 ```

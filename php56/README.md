@@ -58,20 +58,18 @@ Akses http://localhost:8056 untuk dashboard dengan fitur:
 - `/simple-test.php` - Simple connection test
 - `/phpinfo.php` - PHP configuration info
 
-## 🛠️ Makefile Commands
+## 🛠️ Management Commands
 
 ```bash
-make help      # Lihat semua perintah
-make up        # Start container
-make down      # Stop container
-make restart   # Restart container
-make logs      # Show logs
-make status    # Show status
-make shell     # Access container shell
-make test      # Test HTTP response
-make diagnose  # Diagnose 502 error
-make fix       # Fix 502 error
-make clean     # Clean up container
+# Basic Docker commands
+docker-compose up -d      # Start container
+docker-compose down       # Stop container
+docker-compose restart    # Restart container
+docker-compose logs -f    # Show logs
+
+# Container access
+docker-compose exec php56 bash  # Access shell
+docker-compose exec php56 php -v  # Check PHP version
 ```
 
 ## 🔗 Database Connection
@@ -98,23 +96,28 @@ $password = 'MyP4ss_9494!';
 ### 502 Bad Gateway
 
 ```bash
-make diagnose  # Automatic diagnosis
-make fix       # Automatic fix
+# Check container status
+docker-compose ps
+
+# Check logs for errors
+docker-compose logs -f php56
+
+# Restart container
+docker-compose restart
 ```
 
 ### Container Issues
 
 ```bash
 # Check status
-make status
+docker-compose ps
 docker ps
 
 # Check logs
-make logs
 docker-compose logs -f
 
 # Restart service
-make restart
+docker-compose restart
 ```
 
 ### Network Issues
@@ -136,8 +139,7 @@ docker-compose down && docker-compose up -d
 php56/
 ├── .env                 # Environment configuration
 ├── docker-compose.yml   # Docker compose config
-├── Makefile            # Management commands
-└── app/                # Web application files
+└── app/                # Web application files (auto-generated)
     ├── index.php       # Main dashboard
     ├── mysql.php       # MySQL test (detailed)
     ├── test-mysql.php  # MySQL test (quick)
@@ -155,7 +157,7 @@ php56/
 ### Custom Configuration
 
 1. Edit file `.env` untuk mengubah setting
-2. Restart container: `make restart`
+2. Restart container: `docker-compose restart`
 
 ---
 
