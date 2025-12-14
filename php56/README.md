@@ -42,22 +42,6 @@ PHP_UPLOAD_MAX_FILESIZE=100M
 PHP_POST_MAX_SIZE=100M
 ```
 
-## 🧪 Test Dashboard
-
-Akses http://localhost:8056 untuk dashboard dengan fitur:
-
-- PHP version info dan server status
-- Database connection tests
-- Extension checks
-- Test scripts navigation
-
-### Available Test Scripts
-
-- `/mysql.php` - Comprehensive MySQL test dengan UI lengkap
-- `/test-mysql.php` - Quick MySQL connection test
-- `/simple-test.php` - Simple connection test
-- `/phpinfo.php` - PHP configuration info
-
 ## 🛠️ Management Commands
 
 ```bash
@@ -140,11 +124,6 @@ php56/
 ├── .env                 # Environment configuration
 ├── docker-compose.yml   # Docker compose config
 └── app/                # Web application files (auto-generated)
-    ├── index.php       # Main dashboard
-    ├── mysql.php       # MySQL test (detailed)
-    ├── test-mysql.php  # MySQL test (quick)
-    ├── simple-test.php # Simple test
-    └── phpinfo.php     # PHP info
 ```
 
 ## 🔄 Development

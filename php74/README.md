@@ -42,19 +42,6 @@ PHP_UPLOAD_MAX_FILESIZE=100M
 PHP_POST_MAX_SIZE=100M
 ```
 
-## 📊 Available Files
-
-### Current Files
-
-- `index.php` - PHPInfo dashboard
-- `db.php` - Database connection helper
-
-### Custom Development
-
-Tambahkan file PHP Anda di folder `app/` dan akses via:
-
-- http://localhost:8074/filename.php
-
 ## 🔗 Database Connection
 
 ### PostgreSQL Configuration
@@ -136,8 +123,6 @@ php74/
 ├── .env                 # Environment configuration
 ├── docker-compose.yml   # Docker compose config
 └── app/                # Web application files
-    ├── index.php       # PHPInfo dashboard
-    └── db.php          # Database connection helper
 ```
 
 ## 🔄 Development
@@ -146,12 +131,6 @@ php74/
 
 1. Buat file PHP di folder `app/`
 2. Akses via http://localhost:8074/filename.php
-
-### Database Integration
-
-1. Gunakan `db.php` sebagai helper connection
-2. Pastikan database service sudah running
-3. Test koneksi melalui script PHP
 
 ### Custom Extensions
 
