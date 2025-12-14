@@ -1,0 +1,21 @@
+services:
+  php74:
+    image: jdanuc7/php74-expressa:latest
+    container_name: php74-expressa
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8074}:8074"
+    volumes:
+      - ./app:/var/www/html
+    environment:
+      - TZ=${TZ:-Asia/Jakarta}
+      - PHP_MEMORY_LIMIT=${PHP_MEMORY_LIMIT:-256M}
+      - PHP_MAX_EXECUTION_TIME=${PHP_MAX_EXECUTION_TIME:-300}
+      - PHP_UPLOAD_MAX_FILESIZE=${PHP_UPLOAD_MAX_FILESIZE:-100M}
+      - PHP_POST_MAX_SIZE=${PHP_POST_MAX_SIZE:-100M}
+    networks:
+      - expressa-net
+
+networks:
+  expressa-net:
+    external: true

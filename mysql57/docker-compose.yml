@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: jdanuc7/mysql57-expressa:latest
+    container_name: mysql57-expressa
+    restart: unless-stopped
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-MyR00t_5757!}
+      TZ: ${TZ:-Asia/Jakarta}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_logs:/var/log/mysql
+    networks:
+      - expressa-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-MyR00t_5757!}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  mysql_data:
+  mysql_logs:
+
+networks:
+  expressa-net:
+    external: true

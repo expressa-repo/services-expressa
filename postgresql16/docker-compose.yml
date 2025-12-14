@@ -1,0 +1,31 @@
+services:
+  postgresql:
+    image: jdanuc7/postgresql16-expressa:latest
+    container_name: ${CONTAINER_NAME:-postgresql16-expressa}
+    ports:
+      - "${DB_PORT:-9494}:5432"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-PgP4ss_9494!}
+      - TZ=${TZ:-Asia/Jakarta}
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - expressa-net
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-svc_pg3xp} -d ${POSTGRES_DB:-expressa_db}",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  postgresql_data:
+
+networks:
+  expressa-net:
+    external: true
