@@ -1,64 +1,188 @@
-# Expressa Development Environment
+# Services Expressa
 
-Paket development PHP beserta service database yang terdiri dari **PHP 5.6**, **PHP 7.4**, **MySQL 5.7**, dan **PostgreSQL 16**.
+Koleksi service development PHP dan database menggunakan Docker. Setiap service tersedia dalam branch terpisah untuk fleksibilitas maksimal.
 
-## 🎯 Installation
+## 🎯 Available Services
 
-```bash
-git clone https://github.com/expressa-repo/services-expressa.git
-cd services-expressa
-```
-
-## ⚠️ WAJIB: Buat Network Terlebih Dahulu
-
-```bash
-docker network create expressa-net
-```
-
-## 📋 Daftar Service
-
-| Service       | Port | Akses                 | README                                           |
-| ------------- | ---- | --------------------- | ------------------------------------------------ |
-| PHP 5.6       | 8056 | http://localhost:8056 | [php56/README.md](php56/README.md)               |
-| PHP 7.4       | 8074 | http://localhost:8074 | [php74/README.md](php74/README.md)               |
-| MySQL 5.7     | 3306 | localhost:3306        | [mysql57/README.md](mysql57/README.md)           |
-| PostgreSQL 16 | 9494 | localhost:9494        | [postgresql16/README.md](postgresql16/README.md) |
+| Service       | Branch         | Port | Description                         |
+| ------------- | -------------- | ---- | ----------------------------------- |
+| PHP 5.6       | `php56`        | 8056 | PHP 5.6 dengan test dashboard MySQL |
+| PHP 7.4       | `php74`        | 8074 | PHP 7.4 modern development          |
+| MySQL 5.7     | `mysql57`      | 3306 | MySQL 5.7 database server           |
+| PostgreSQL 16 | `postgresql16` | 9494 | PostgreSQL 16 database server       |
 
 ## 🚀 Quick Start
 
-```bash
-# 1. WAJIB: Buat network
-docker network create expressa-net
+### Clone Service Tertentu
 
-# 2. Start service yang dibutuhkan
-cd php56 && docker-compose up -d    # PHP 5.6
-cd mysql57 && docker-compose up -d  # MySQL 5.7
-cd php74 && docker-compose up -d    # PHP 7.4
-cd postgresql16 && docker-compose up -d  # PostgreSQL 16
+```bash
+# Clone PHP 5.6 saja
+git clone -b php56 https://github.com/username/services-expressa.git php56-expressa
+cd php56-expressa
+
+# Clone MySQL 5.7 saja
+git clone -b mysql57 https://github.com/username/services-expressa.git mysql57-expressa
+cd mysql57-expressa
+
+# Clone PHP 7.4 saja
+git clone -b php74 https://github.com/username/services-expressa.git php74-expressa
+cd php74-expressa
+
+# Clone PostgreSQL 16 saja
+git clone -b postgresql16 https://github.com/username/services-expressa.git postgresql16-expressa
+cd postgresql16-expressa
 ```
 
-## 📖 Dokumentasi Detail
+### Clone Multiple Services
 
-Setiap service memiliki dokumentasi lengkap di folder masing-masing:
+```bash
+# Setup workspace
+mkdir expressa-workspace && cd expressa-workspace
 
-- **[php56/README.md](php56/README.md)** - PHP 5.6 dengan test dashboard
-- **[php74/README.md](php74/README.md)** - PHP 7.4 dengan PHPInfo
-- **[mysql57/README.md](mysql57/README.md)** - MySQL 5.7 server
-- **[postgresql16/README.md](postgresql16/README.md)** - PostgreSQL 16 server
+# Clone services yang dibutuhkan
+git clone -b php56 https://github.com/username/services-expressa.git php56
+git clone -b mysql57 https://github.com/username/services-expressa.git mysql57
 
-## 🔧 Troubleshooting
+# atau kombinasi lain
+git clone -b php74 https://github.com/username/services-expressa.git php74
+git clone -b postgresql16 https://github.com/username/services-expressa.git postgresql16
+```
 
-### Network Error
+## ⚠️ WAJIB: Setup Network
+
+Sebelum menjalankan service apapun:
+
+```bash
+docker network create expressa-net
+```
+
+## 🔧 Setup Environment
+
+Setiap service memiliki `.env.example` yang bisa langsung digunakan:
+
+```bash
+# Masuk ke folder service
+cd php56  # atau mysql57, php74, postgresql16
+
+# Copy environment file
+cp .env.example .env
+
+# Start service
+docker-compose up -d
+```
+
+## 📖 Dokumentasi Lengkap
+
+Setiap branch memiliki README lengkap dengan:
+
+- Setup dan konfigurasi detail
+- Management commands
+- Database connection examples
+- Troubleshooting guide
+- Development tips
+
+### Branch Documentation:
+
+- **[php56 branch](https://github.com/username/services-expressa/tree/php56)** - PHP 5.6 dengan MySQL test dashboard
+- **[php74 branch](https://github.com/username/services-expressa/tree/php74)** - PHP 7.4 modern development
+- **[mysql57 branch](https://github.com/username/services-expressa/tree/mysql57)** - MySQL 5.7 database server
+- **[postgresql16 branch](https://github.com/username/services-expressa/tree/postgresql16)** - PostgreSQL 16 database server
+
+## 🎯 Use Cases
+
+### Development Stack: PHP 5.6 + MySQL
+
+```bash
+mkdir php56-mysql-stack && cd php56-mysql-stack
+git clone -b mysql57 https://github.com/username/services-expressa.git mysql57
+git clone -b php56 https://github.com/username/services-expressa.git php56
+
+# Setup
+docker network create expressa-net
+cd mysql57 && cp .env.example .env && docker-compose up -d && cd ..
+cd php56 && cp .env.example .env && docker-compose up -d && cd ..
+
+# Access: http://localhost:8056
+```
+
+### Development Stack: PHP 7.4 + PostgreSQL
+
+```bash
+mkdir php74-postgres-stack && cd php74-postgres-stack
+git clone -b postgresql16 https://github.com/username/services-expressa.git postgresql16
+git clone -b php74 https://github.com/username/services-expressa.git php74
+
+# Setup
+docker network create expressa-net
+cd postgresql16 && cp .env.example .env && docker-compose up -d && cd ..
+cd php74 && cp .env.example .env && docker-compose up -d && cd ..
+
+# Access: http://localhost:8074
+```
+
+### Database Only
+
+```bash
+# Hanya butuh MySQL
+git clone -b mysql57 https://github.com/username/services-expressa.git mysql57
+cd mysql57 && cp .env.example .env && docker-compose up -d
+
+# Hanya butuh PostgreSQL
+git clone -b postgresql16 https://github.com/username/services-expressa.git postgresql16
+cd postgresql16 && cp .env.example .env && docker-compose up -d
+```
+
+## 🔍 Troubleshooting
+
+### Network Issues
 
 ```bash
 # Pastikan network sudah dibuat
 docker network create expressa-net
+docker network ls | grep expressa-net
 ```
 
-### Port Conflict
+### Port Conflicts
 
-Edit file `.env` di masing-masing service untuk mengubah port.
+Edit file `.env` di service yang bentrok:
+
+```bash
+# Contoh: ubah port PHP 5.6
+cd php56
+nano .env  # ubah WEB_PORT=8056 ke WEB_PORT=8057
+docker-compose up -d
+```
+
+## 🤝 Contributing
+
+1. Fork repository
+2. Buat branch untuk service baru atau update existing
+3. Submit pull request ke branch yang sesuai
 
 ---
 
-**Expressa Development Environment** - Paket lengkap development PHP dan database
+**Services Expressa** - Modular development services untuk PHP dan database
+
+## 📝 Migration Guide
+
+Jika Anda sudah menggunakan versi monorepo sebelumnya:
+
+### Dari Monorepo ke Branch Terpisah
+
+```bash
+# Backup existing work
+cp -r php56/app php56-app-backup
+cp -r php74/app php74-app-backup
+
+# Clone branch baru
+git clone -b php56 https://github.com/username/services-expressa.git php56-new
+git clone -b php74 https://github.com/username/services-expressa.git php74-new
+
+# Restore aplikasi
+cp -r php56-app-backup/* php56-new/app/
+cp -r php74-app-backup/* php74-new/app/
+
+# Setup environment
+cd php56-new && cp .env.example .env && docker-compose up -d
+cd php74-new && cp .env.example .env && docker-compose up -d
+```
