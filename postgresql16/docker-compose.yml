@@ -5,6 +5,8 @@ services:
     ports:
       - "${DB_PORT:-9494}:5432"
     environment:
+      - POSTGRES_DB=${POSTGRES_DB:-expressa_db}
+      - POSTGRES_USER=${POSTGRES_USER:-svc_pg3xp}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-PgP4ss_9494!}
       - TZ=${TZ:-Asia/Jakarta}
     volumes:
