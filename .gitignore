@@ -112,6 +112,7 @@ postgresql_data/
 # Application folders (user development files)
 php56/app/
 php74/app/
+php82/app/
 
 # Backup files
 *.bak
